@@ -1,0 +1,8 @@
+10) Есть строка слов(присвоенная вами переменной): вывести слова, стоящие на нечетных позициях.
+String strName = 'Позови меня с собой я приду сквозь злые ночи';
+String[] strArray = strName.split(' ');
+for (Integer i = 0; i < strArray.size(); i++) {
+    if (math.mod(i, 2) != 0) {
+        system.debug('Odd position word: ' + strArray[i]);
+    }
+}

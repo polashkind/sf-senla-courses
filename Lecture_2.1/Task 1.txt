@@ -1,0 +1,1 @@
+1) Необходимо вывести в дебаг строку “Hello world”.String sayHello = ‘Hello, World!’;System.debug (sayHello);

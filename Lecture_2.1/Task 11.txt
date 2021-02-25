@@ -1,0 +1,12 @@
+11. Создать массив чисел. Сформировать новый массив, состоящий из индексов четных чисел исходного массива и упорядоченный по возрастанию.
+
+{
+    Integer[] secondArray = new Integer[] {};
+        Integer[] firstArray = new Integer[] {34, 1, 2, 4, 6, 5, 7, 6, 8, 7, 14, 3, 54};
+    for (Integer i = 0; i < firstArray.size(); i++) {
+        if (math.mod(firstArray[i], 2) == 0) {
+            secondArray.add(i);
+        system.debug(secondArray);
+    }
+  }
+}

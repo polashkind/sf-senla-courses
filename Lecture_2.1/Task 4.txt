@@ -1,0 +1,2 @@
+4) Необходимо вывести на экран таблицу умножения на 3.For (integer count = 1; count < 11; count++) {
+System.debug (3 * count);};

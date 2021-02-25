@@ -1,0 +1,2 @@
+12) Введите строку, состоящую из английских слов. Найти количество слов с одинаковой длиной. Использовать мапу, где ключ - длина слова, значение - количество слов.
+String engWord = 'each,early,east,eat,economic,able,about,acid';String[] engArray = engWord.split(',');Map <Integer, Integer> word = new Map <Integer, Integer>();    for (integer i = 0; i < engArray.size(); i++) {    integer count = engArray[i].length();    if (word.containsKey(count)) {        word.put(count, word.get(count) + 1);    } else {        word.put(count, 1);     }    system.debug(word);}
