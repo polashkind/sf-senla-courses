@@ -1,0 +1,10 @@
+16. Необходимо написать программу, которая проверяет число на “палиндромность”. Число для проверки объявлено в первой строки скрипта (Long numToCheck = 910019);
+Long numToCheck = 910019;
+
+string numStr = string.valueof(numToCheck);
+string reversString = numStr.reverse();
+if (numStr == reversString) {
+    system.debug(true);
+} else {
+    system.debug(false);
+}
