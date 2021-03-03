@@ -1,10 +1,10 @@
 8) Из созданного массива достать четные и нечетные числа.
 
 Integer[] myArray = new Integer []{1, 2, 3, 4, 5, 4, 7, 8, 9, 10};
-for (Integer i = 0; i < myArray.size(); i++) {
-if (math.mod(myArray[i], 2) == 0) {
-System.debug ('Even number: ' + myArray[i]);
-} else {
-System.debug ('Odd number: ' + myArray[i]);
-};
-}
+  for (Integer i = 0; i < myArray.size(); i++) {
+    if (math.mod(myArray[i], 2) == 0) {
+      system.debug('Even number: ' + myArray[i]);
+    } else {
+      system.debug('Odd number: ' + myArray[i]);
+    };
+  }

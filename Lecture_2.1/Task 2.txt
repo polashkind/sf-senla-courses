@@ -1,2 +1,4 @@
-2) Необходимо вывести на экран числа от 1 до 5.For (integer count = 1; count < 6; count++) {
-System.debug (count);};
+2) Необходимо вывести на экран числа от 1 до 5.
+for (Integer count = 1; count < 6; count++) { 
+  System.debug(count);
+};
