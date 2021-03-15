@@ -2,7 +2,7 @@ public class NumberUtility {
 
     // 15. Необходимо написать программу, которая вычисляет числа Фибоначчи в пределах от 1 до N. Число N – объявлено в первой строки скрипта.
     
-    public static void FibbonachiNum(Integer n){
+    public static string FibbonachiNum(Integer n){
         Integer[] arr = new Integer[] {};
         Integer prev = 1;
         Integer curr = 1;
@@ -13,18 +13,18 @@ public class NumberUtility {
             prev = curr;
             curr = curr + prevNum;
         }
-        system.debug('Result: ' + String.valueOf(arr));
+        return 'Result: ' + String.valueOf(arr);
     }
 
     // 16. Необходимо написать программу, которая проверяет число на “палиндромность”. Число для проверки объявлено в первой строки скрипта (Long N = 910019);
     
-    public static void palindromNumber(Integer numToCheck) {
+    public static boolean palindromNumber(Integer numToCheck) {
         String numStr = String.valueof(numToCheck);
         String reversString = numStr.reverse();
         if (numStr == reversString) {
-            system.debug(true);
+            return true;
         } else {
-            system.debug(false);
+            return false;
         }
     }
     
