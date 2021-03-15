@@ -1,22 +1,24 @@
 public class TouristService {
     public static void markDuplicates(List<Tourist__c> newTourists) {
-        for (Integer i = 0; i < newTourists.size() - 1; i++) {
-            Tourist__c tourist = newTourists.get(i);
-            
-            for (Integer j = i + 1; j < newTourists.size(); j++) {
-                Tourist__c touristToCompare = newTourists.get(j);
-                
+        List<Tourist__c> existingTourists = [
+            SELECT Tourist_Last_Name__c,
+                    Email__c
+            FROM Tourist__c
+        ];
+        
+        for (Tourist__c newTourist : newTourists) {
+            for (Tourist__c existingTourist : existingTourists) {
                 if (
-                    tourist.Tourist_Last_Name__c == touristToCompare.Tourist_Last_Name__c 
-                    && tourist.Email__c == touristToCompare.Email__c
+                    newTourist.Tourist_Last_Name__c == existingTourist.Tourist_Last_Name__c 
+                    && newTourist.Email__c == existingTourist.Email__c
                 ) {
-                    tourist.IsDuplicate__c = true;
-                    touristToCompare.IsDuplicate__c = true;
-                    
-                    update tourist;
-                    update touristToCompare;
+                    newTourist.IsDuplicate__c = true;
+                    existingTourist.IsDuplicate__c = true;
                 }
             }
         }
-    }      
+ 
+        update newTourists;
+        update existingTourists;
+    }
 }
