@@ -30,7 +30,8 @@ public class NumberUtility {
     
     // 14. Необходимо написать программу, которая вычисляет простые числа в пределах от 1 до N. Число N – объявлено в первой строки скрипта.
 
-    public static void numberPrime(Integer toNum) {
+    public static list<Integer> numberPrime(Integer toNum) {
+        list<Integer> numPrimeOne;
         for (Integer i = 2; i <= toNum; i++) {
             Boolean numPrime = true;
             
@@ -41,8 +42,9 @@ public class NumberUtility {
             }
             
             if (numPrime) {
-                system.debug(i);
+                numPrimeOne.add(i);
             }
         }
+        return numPrimeOne;
     }
 }
