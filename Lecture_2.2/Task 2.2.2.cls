@@ -8,7 +8,7 @@ public class TouristManager {
             FROM Tourist__c 
             WHERE Name = :filterName
         ];
-        return getByName;
+        return searchTouristByName;
     }
     
     // выбрать туристов (имя, возраст) с возрастом 20, 22, 24 года
@@ -19,7 +19,7 @@ public class TouristManager {
             FROM Tourist__c 
             WHERE Age__c = :filterAge
         ];
-        return getByAge;
+        return searchTouristByAge;
     }
    
     // выбрать туристов (имя, возраст), у которых рейс стартовал в 2020 году.
@@ -31,7 +31,7 @@ public class TouristManager {
             FROM Flight__c 
             WHERE CALENDAR_YEAR(Trip__r.Start_Date__c) >= :filterYear
         ];
-        return getByFlight;
+        return searchTouristByFlight;
     }
 
     // выбрать туристов (имя, возраст) со списком рейсов (дата старта, название)
@@ -44,7 +44,7 @@ public class TouristManager {
                    Trip__r.Start_Date__c 
             FROM Flight__c
         ];
-        return getByFlightList;
+        return searchTouristByFlightList;
     }
 
     // выбрать туристов (имя, возраст) которые не зарегистрировались ни на один рейс
@@ -55,6 +55,6 @@ public class TouristManager {
             FROM Tourist__c 
             WHERE Id NOT IN (SELECT Tourist__c FROM Flight__c)
         ];
-        return getByNonFlight;
+        return searchTouristNonFlight;
     }
 }
