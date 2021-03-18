@@ -8,4 +8,15 @@ public class TouristManagerCustom {
       ];
       return searchTouristByEmailLastName;
   }
+
+  public static List<Tourist__c> getByStatus(){
+    List<Flight__c> searchStatusForFlight = [
+          SELECT Tourist_Status__c,
+                  Trip__r.Start_Date__c,
+                  Tourist__r.Is_Active__c
+          FROM Flight__c
+          WHERE Tourist__c =: newTourist.Id
+      ];
+      return searchStatusForFlight;
+  }
 }
