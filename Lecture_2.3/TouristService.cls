@@ -1,10 +1,6 @@
 public class TouristService {
   public static void markDuplicates(List<Tourist__c> newTourists) {
-      List<Tourist__c> existingTourists = [
-          SELECT Tourist_Last_Name__c,
-          Email__c
-          FROM Tourist__c
-      ];
+      List<Tourist__c> existingTourists = TouristManagerCustom.getByEmailLastName();
       
       for (Tourist__c newTourist : newTourists) {
           for (Tourist__c existingTourist : existingTourists) {
@@ -15,12 +11,11 @@ public class TouristService {
                   && newTourist.Email__c == existingTourist.Email__c
               ) {
                   newTourist.IsDuplicate__c = true;
-                  existingTourist.IsDuplicate__c = true;
               }
           }
       }
       
-      update existingTourists;
+      update newTourists;
   }
   
   public static void flightStatusDeclined(List<Tourist__c> newTourists) {
