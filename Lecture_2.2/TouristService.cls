@@ -11,11 +11,11 @@ public class TouristService {
                     && newTourist.Tourist_Last_Name__c == existingTourist.Tourist_Last_Name__c 
                     && newTourist.Email__c == existingTourist.Email__c
                 ) {
-                    existingTourist.IsDuplicate__c = true;
+                    newTourist.IsDuplicate__c = true;
                 }
             }
         }
  
-        update existingTourists;
+        update newTourists;
     }
 }
