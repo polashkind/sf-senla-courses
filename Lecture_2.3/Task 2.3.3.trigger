@@ -1,7 +1,11 @@
-trigger TouristAgeTrigger on Flight__c (before insert) {
+trigger TouristTrigger on Tourist__c (before insert, after update) {
     switch on Trigger.operationType {
         when BEFORE_INSERT {
-            TouristAgeTriggerHandler.onBeforeInsert(Trigger.New);
+            TouristService.markDuplicates(Trigger.New);
+        }
+        
+        when AFTER_UPDATE {
+            TouristService.flightStatusDeclined(Trigger.New);
         }
     }
 }

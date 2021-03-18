@@ -1,20 +1,44 @@
-public class TouristAgeTriggerHandler {
-    public static void onBeforeInsert(List<Flight__c> newFlights) {
-        List<Flight__c> flightAge = [
-            SELECT Tourist__r.Age__c,
-                    Trip__r.Minimum_Age__c,
-                    Trip__r.Start_Date__c,
-            		Status__c
-            FROM Flight__c
-        ];
-        
-        for (Flight__c newFlight : newFlights) {
-            if (newFlight.Tourist__r.Age__c < newFlight.Trip__r.Minimum_Age__c) {
-                newFlight.addError('You are less than the legal age for flying');
-            }
-            if (newFlight.Status__c == 'Upcoming' || newFlight.Trip__r.Start_Date__c < date.today()) {
-                newFlight.addError('The ship has already departed');
-            }
+public class TouristService {
+  public static void markDuplicates(List<Tourist__c> newTourists) {
+      List<Tourist__c> existingTourists = [
+          SELECT Tourist_Last_Name__c,
+          Email__c
+          FROM Tourist__c
+      ];
+      
+      for (Tourist__c newTourist : newTourists) {
+          for (Tourist__c existingTourist : existingTourists) {
+              if (
+                  !String.isBlank(newTourist.Tourist_Last_Name__c)
+                  && !String.isBlank(newTourist.Email__c)
+                  && newTourist.Tourist_Last_Name__c == existingTourist.Tourist_Last_Name__c 
+                  && newTourist.Email__c == existingTourist.Email__c
+              ) {
+                  newTourist.IsDuplicate__c = true;
+                  existingTourist.IsDuplicate__c = true;
+              }
+          }
+      }
+      
+      update existingTourists;
+  }
+  
+  public static void flightStatusDeclined(List<Tourist__c> newTourists) {
+    Tourist__c newTourist = newTourists[0];
+    List<Flight__c> statusForFlight = [
+        SELECT Tourist_Status__c,
+                Trip__r.Start_Date__c,
+                Tourist__r.Is_Active__c
+        FROM Flight__c
+        WHERE Tourist__c =: newTourist.Id
+    ];
+    
+    if (!newTourist.Is_Active__c) {
+        for (Integer i = 0; i < statusForFlight.size(); i++) {
+            statusForFlight.get(i).Tourist_Status__c = 'Declined';
         }
+        
+        update statusForFlight;
     }
+  }
 }
