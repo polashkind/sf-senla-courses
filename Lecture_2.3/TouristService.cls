@@ -20,13 +20,7 @@ public class TouristService {
   
   public static void flightStatusDeclined(List<Tourist__c> newTourists) {
     Tourist__c newTourist = newTourists[0];
-    List<Flight__c> statusForFlight = [
-        SELECT Tourist_Status__c,
-                Trip__r.Start_Date__c,
-                Tourist__r.Is_Active__c
-        FROM Flight__c
-        WHERE Tourist__c =: newTourist.Id
-    ];
+    List<Flight__c> statusForFlight = TouristManagerCustom.getByStatus();
     
     if (!newTourist.Is_Active__c) {
         for (Integer i = 0; i < statusForFlight.size(); i++) {
