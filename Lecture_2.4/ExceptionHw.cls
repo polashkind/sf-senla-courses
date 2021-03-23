@@ -1,18 +1,18 @@
-public class ExceptionHw {
+public class ExceptionsPlayground {
   public class CustomException extends Exception {}
   
-  public static void throwCustomException() {
+  public static void generateCustomException() {
     throw new CustomException('Custom Exception');
   }
   
-  public static void throwStandardException() {
+  public static void generateRegularException() {
     throw new TypeException('Type Exception');
   }
   
-  public static void testExceptions() {
+  public static void handleExceptions() {
     try {
-      throwCustomException();
-      throwStandardException();
+      generateCustomException();
+      generateRegularException();
     } catch (Exception error) {
       system.debug(error.getMessage());
     } finally {
