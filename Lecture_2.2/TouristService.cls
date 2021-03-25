@@ -1,7 +1,7 @@
 public class TouristService {
     
     public static void markDuplicates(List<Tourist__c> newTourists) {
-        List<Tourist__c> existingTourists = TouristManagerCustom.getByEmailLastName();
+        List<Tourist__c> existingTourists = TouristManager.getByEmailLastName();
         
         for (Tourist__c newTourist : newTourists) {
             for (Tourist__c existingTourist : existingTourists) {
@@ -15,7 +15,7 @@ public class TouristService {
                 }
             }
         }
- 
+       
         update newTourists;
     }
 }

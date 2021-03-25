@@ -28,13 +28,13 @@ public class TouristManager {
         return searchTouristByFlight;
     }
 
-    public static List<Flight__c> getByFlightList(){
-        List<Flight__c> searchTouristByFlightList = [
-            SELECT Tourist__r.Name, 
-                   Tourist__r.Age__c, 
-                   Trip__r.Name, 
-                   Trip__r.Start_Date__c 
-            FROM Flight__c
+    public static List<Tourist__c> getByFlightList(){
+        List<Tourist__c> searchTouristByFlightList = [
+            SELECT Name,
+                   Age__c, 
+                   (SELECT  Trip__r.Name, Trip__r.Start_Date__c 
+                   FROM Flights__r)
+            FROM Tourist__c
         ];
         return searchTouristByFlightList;
     }
@@ -46,5 +46,28 @@ public class TouristManager {
             WHERE Id NOT IN (SELECT Tourist__c FROM Flight__c)
         ];
         return searchTouristNonFlight;
+    }
+
+    public static List<Tourist__c> getByEmailLastName(){
+        
+        List<Tourist__c> searchTouristByEmailLastName = [
+            SELECT Tourist_Last_Name__c,
+                    Email__c
+            FROM Tourist__c
+            WHERE Tourist__c.Tourist_Last_Name__c == :newTourist.Tourist_Last_Name__c 
+                    && Tourist__c.Email__c == :newTourist.Email__c
+        ];
+        return searchTouristByEmailLastName;
+    }
+
+    public static List<Tourist__c> getByStatus(){
+    List<Flight__c> searchStatusForFlight = [
+            SELECT Tourist_Status__c,
+                    Trip__r.Start_Date__c,
+                    Tourist__r.Is_Active__c
+            FROM Flight__c
+            WHERE Tourist__c = :newTourist.Id
+        ];
+        return searchStatusForFlight;
     }
 }

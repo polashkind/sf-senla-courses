@@ -1,6 +1,6 @@
 public class NumberUtility {
 
-    public static String FibbonachiNum(Integer n){
+    public static String fibbonachiNum(Integer n){
         Integer[] arr = new Integer[] {};
         Integer prev = 1;
         Integer curr = 1;
@@ -14,13 +14,13 @@ public class NumberUtility {
         return 'Result: ' + String.valueOf(arr);
     }
 
-    public static Boolean palindromNumber(Integer numToCheck) {
+    public static Boolean isPalindromNumber(Integer numToCheck) {
         String numStr = String.valueof(numToCheck);
         String reversString = numStr.reverse();
         return numStr == reversString;
     }
     
-    public static List<Integer> numberPrime(Integer toNum) {
+    public static List<Integer> getPrimeNumbers(Integer toNum) {
         List<Integer> numPrimeOne;
         for (Integer i = 2; i <= toNum; i++) {
             Boolean numPrime = true;
