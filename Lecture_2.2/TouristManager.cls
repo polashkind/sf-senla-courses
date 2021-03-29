@@ -48,25 +48,26 @@ public class TouristManager {
         return searchTouristNonFlight;
     }
 
-    public static List<Tourist__c> getByEmailLastName(){
+    public static List<Tourist__c> getByEmailLastName(sObject newTourist){
         
         List<Tourist__c> searchTouristByEmailLastName = [
             SELECT Tourist_Last_Name__c,
                     Email__c
             FROM Tourist__c
-            WHERE Tourist__c.Tourist_Last_Name__c == :newTourist.Tourist_Last_Name__c 
-                    && Tourist__c.Email__c == :newTourist.Email__c
+            WHERE Tourist__c.Tourist_Last_Name__c = :newTourist.Tourist_Last_Name__c 
+                    && Tourist__c.Email__c = :newTourist.Email__c
         ];
         return searchTouristByEmailLastName;
     }
 
-    public static List<Tourist__c> getByStatus(){
-    List<Flight__c> searchStatusForFlight = [
-            SELECT Tourist_Status__c,
+    public static List<Tourist__c> getByStatus(sObject newTourist){
+    List<Tourist__c> searchStatusForFlight = [
+           SELECT Name, (SELECT Tourist_Status__c,
                     Trip__r.Start_Date__c,
                     Tourist__r.Is_Active__c
-            FROM Flight__c
-            WHERE Tourist__c = :newTourist.Id
+                    FROM Flights__r
+                    WHERE Tourist__c = :newTourist.Id)
+        	FROM Tourist__c
         ];
         return searchStatusForFlight;
     }
