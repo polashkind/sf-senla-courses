@@ -23,12 +23,14 @@ public class TouristService {
         Tourist__c newTourist = newTourists[0];
         List<Flight__c> flights = TouristManager.getByStatus();
         
-        if (!newTourist.Is_Active__c) {
-            for (Flight__c flight : flights) {
-                flight.Tourist_Status__c = 'Declined';
-            }
+        for (Tourist__c newTourist : newTourists) {
+            if (!newTourist.Is_Active__c) {
+                for (Flight__c flight : flights) {
+                    flight.Tourist_Status__c = 'Declined';
+                }
             
-            update flights;
+                update flights;
+            }
         }
     }
 }
