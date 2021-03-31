@@ -1,8 +1,18 @@
 public class TouristService {
     
     public static void markDuplicates(List<Tourist__c> newTourists) {
-        List<Tourist__c> existingTourists = TouristManager.getByEmailLastName();
-        
+        if (newTourists == null || newTourists.isEmpty()) return;
+
+        Set<String> newEmails = new Set<String>();
+        Set<String> newNames = new Set<String>();
+
+        for (Tourist__c tourist : newTourists) {
+            newEmails.add(touristEmail.Email__c);
+            newNames.add(touristEmail.Tourist_Last_Name__c);
+        }
+
+        List<Tourist__c> existingTourists = TouristManager.getByEmailAndLastName(Set<String> newEmails, Set<String> newNames);
+
         for (Tourist__c newTourist : newTourists) {
             for (Tourist__c existingTourist : existingTourists) {
                 if (
@@ -15,7 +25,6 @@ public class TouristService {
                 }
             }
         }
-       
         update newTourists;
     }
-}
+} 

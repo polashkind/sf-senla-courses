@@ -18,12 +18,13 @@ public class TouristManager {
         return searchTouristByAge;
     }
    
-    public static List<Flight__c> getByFlight(Integer filterYear){
-        List<Flight__c> searchTouristByFlight = [
-            SELECT Tourist__r.Name, 
-                   Tourist__r.Age__c 
-            FROM Flight__c 
-            WHERE CALENDAR_YEAR(Trip__r.Start_Date__c) >= :filterYear
+    public static List<Tourist__c> getByFlight(Integer filterYear){
+        List<Tourist__c> searchTouristByFlight = [
+            SELECT Name, (SELECT Tourist__r.Name, 
+                                Tourist__r.Age__c 
+                          FROM Flights__r
+                          WHERE CALENDAR_YEAR(Trip__r.Start_Date__c) >= :filterYear)
+            FROM Tourist__c
         ];
         return searchTouristByFlight;
     }
@@ -48,27 +49,13 @@ public class TouristManager {
         return searchTouristNonFlight;
     }
 
-    public static List<Tourist__c> getByEmailLastName(sObject newTourist){
-        
+    public static List<Tourist__c> getByEmailAndLastName(Set<String> newNames, Set<String> newEmails){
         List<Tourist__c> searchTouristByEmailLastName = [
             SELECT Tourist_Last_Name__c,
                     Email__c
             FROM Tourist__c
-            WHERE Tourist__c.Tourist_Last_Name__c = :newTourist.Tourist_Last_Name__c 
-                    && Tourist__c.Email__c = :newTourist.Email__c
+            WHERE Tourist_Last_Name__c = :newNames AND Email__c = :newEmails
         ];
         return searchTouristByEmailLastName;
-    }
-
-    public static List<Tourist__c> getByStatus(sObject newTourist){
-    List<Tourist__c> searchStatusForFlight = [
-           SELECT Name, (SELECT Tourist_Status__c,
-                    Trip__r.Start_Date__c,
-                    Tourist__r.Is_Active__c
-                    FROM Flights__r
-                    WHERE Tourist__c = :newTourist.Id)
-        	FROM Tourist__c
-        ];
-        return searchStatusForFlight;
     }
 }
