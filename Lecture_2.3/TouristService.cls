@@ -1,8 +1,20 @@
 public class TouristService {
 
+    public static Boolean isFirstTime = true;
+
     public static void markDuplicates(List<Tourist__c> newTourists) {
-        List<Tourist__c> existingTourists = TouristManager.getByEmailLastName();
-        
+        if (newTourists == null || newTourists.isEmpty()) return;
+
+        Set<String> newEmails = new Set<String>();
+        Set<String> newNames = new Set<String>();
+
+        for (Tourist__c tourist : newTourists) {
+            newEmails.add(touristEmail.Email__c);
+            newNames.add(touristEmail.Tourist_Last_Name__c);
+        }
+
+        List<Tourist__c> existingTourists = TouristManager.getByEmailAndLastName(Set<String> newEmails, Set<String> newNames);
+
         for (Tourist__c newTourist : newTourists) {
             for (Tourist__c existingTourist : existingTourists) {
                 if (
@@ -15,22 +27,24 @@ public class TouristService {
                 }
             }
         }
-            
         update newTourists;
     }
   
     public static void flightStatusDeclined(List<Tourist__c> newTourists) {
-        Tourist__c newTourist = newTourists[0];
-        List<Flight__c> flights = TouristManager.getByStatus();
-        
-        for (Tourist__c newTourist : newTourists) {
-            if (!newTourist.Is_Active__c) {
-                for (Flight__c flight : flights) {
-                    flight.Tourist_Status__c = 'Declined';
-                }
-            
-                update flights;
+        if (newTourists == null || newTourists.isEmpty()) return;
+
+        Set<Id> inactiveTouristsIds = new Set<Id>();
+        for (Tourist__c tourist : newTourists) {
+            if (!tourist.Is_Active__c) {
+                inactiveTouristsIds.add(tourist.Id);
             }
         }
+        
+        List <Flight__c> flights = FlightManager.getFlights(inactiveTouristsIds);
+
+        for (Flight__c flight : flights) {
+            flight.Tourist_Status__c = Constants.FLIGHT_STATUS_DECLINED;
+        }
+        update flights;
     }
 }
