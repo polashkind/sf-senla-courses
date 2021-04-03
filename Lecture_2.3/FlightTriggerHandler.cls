@@ -1,5 +1,7 @@
 public class FlightTriggerHandler {
 
+    public static Boolean isFirstTime = true;
+
     public static void onBeforeInsert(List<Flight__c> newFlights) {
         List<Flight__c> flights = FlightManager.flights();
         

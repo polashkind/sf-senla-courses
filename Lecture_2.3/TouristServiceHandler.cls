@@ -1,4 +1,4 @@
-public class TouristService {
+public class TouristServiceHandler {
 
     public static Boolean isFirstTime = true;
 
@@ -9,11 +9,11 @@ public class TouristService {
         Set<String> newNames = new Set<String>();
 
         for (Tourist__c tourist : newTourists) {
-            newEmails.add(touristEmail.Email__c);
-            newNames.add(touristEmail.Tourist_Last_Name__c);
+            newEmails.add(tourist.Email__c);
+            newNames.add(tourist.Tourist_Last_Name__c);
         }
 
-        List<Tourist__c> existingTourists = TouristManager.getByEmailAndLastName(Set<String> newEmails, Set<String> newNames);
+        List<Tourist__c> existingTourists = TouristManager.getByEmailAndLastName(newNames, newEmails);
 
         for (Tourist__c newTourist : newTourists) {
             for (Tourist__c existingTourist : existingTourists) {
@@ -27,7 +27,6 @@ public class TouristService {
                 }
             }
         }
-        update newTourists;
     }
   
     public static void flightStatusDeclined(List<Tourist__c> newTourists) {
