@@ -11,7 +11,7 @@ public class TouristService {
             newNames.add(touristEmail.Tourist_Last_Name__c);
         }
 
-        List<Tourist__c> existingTourists = TouristManager.getByEmailAndLastName(Set<String> newEmails, Set<String> newNames);
+        List<Tourist__c> existingTourists = TouristManager.getByEmailAndLastName(newEmails, newNames);
 
         for (Tourist__c newTourist : newTourists) {
             for (Tourist__c existingTourist : existingTourists) {
