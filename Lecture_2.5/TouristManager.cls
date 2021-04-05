@@ -61,7 +61,8 @@ public class TouristManager {
     
     public static List<Tourist__c> getTouristsByIds(Set<Id> touristIds){
         List<Tourist__c> tourists = [
-            SELECT Id 
+            SELECT  Tourist_Last_Name__c,
+                    Email__c
             FROM Tourist__c 
             WHERE Id IN :touristIds
         ];

@@ -1,6 +1,7 @@
 public class TouristServiceHandler {
 
     public static Boolean isFirstTime = true;
+    
 	@future
     public static void markDuplicates(Set<Id> touristIds) {
         if (touristIds == null || touristIds.isEmpty()) return;
@@ -10,15 +11,13 @@ public class TouristServiceHandler {
         
         List<Tourist__c> newTourists = TouristManager.getTouristsByIds(touristIds);
         
-        update newTourists;
-        
         for (Tourist__c tourist : newTourists) {
             newEmails.add(tourist.Email__c);
             newNames.add(tourist.Tourist_Last_Name__c);
         }
 
         List<Tourist__c> existingTourists = TouristManager.getByEmailAndLastName(newNames, newEmails);
-
+        
         for (Tourist__c newTourist : newTourists) {
             for (Tourist__c existingTourist : existingTourists) {
                 if (
@@ -31,7 +30,8 @@ public class TouristServiceHandler {
                 }
             }
         }
-        update existingTourists;
+
+        update newTourists;
     }
   
     public static void flightStatusDeclined(List<Tourist__c> newTourists) {
