@@ -58,4 +58,13 @@ public class TouristManager {
         ];
         return searchTouristByEmailLastName;
     }
+
+    public static List<Tourist__c> getByIds(Set<Id> touristIds){
+        List<Tourist__c> tourists = [
+            SELECT Id, Age__c 
+            FROM Tourist__c 
+            WHERE Id IN :touristIds
+        ];
+        return tourists;
+    }
 }
