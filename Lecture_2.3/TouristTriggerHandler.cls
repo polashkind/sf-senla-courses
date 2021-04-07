@@ -1,4 +1,4 @@
-public class TouristServiceHandler {
+public class TouristTriggerHandler {
 
     public static Boolean isFirstTime = true;
 
