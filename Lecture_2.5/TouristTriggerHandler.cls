@@ -2,7 +2,7 @@ public class TouristTriggerHandler {
 
     public static Boolean isFirstTime = true;
     
-	@future
+    @future
     public static void markDuplicates(Set<Id> touristIds) {
         if (touristIds == null || touristIds.isEmpty()) return;
 
