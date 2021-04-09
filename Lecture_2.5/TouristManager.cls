@@ -59,10 +59,9 @@ public class TouristManager {
         return searchTouristByEmailLastName;
     }
     
-    public static List<Tourist__c> getTouristsByIds(Set<Id> touristIds){
+    public static List<Tourist__c> getByIds(Set<Id> touristIds){
         List<Tourist__c> tourists = [
-            SELECT  Tourist_Last_Name__c,
-                    Email__c
+            SELECT Id, Age__c 
             FROM Tourist__c 
             WHERE Id IN :touristIds
         ];
