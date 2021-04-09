@@ -9,7 +9,7 @@ public class TouristTriggerHandler {
         Set<String> newEmails = new Set<String>();
         Set<String> newNames = new Set<String>();
         
-        List<Tourist__c> newTourists = TouristManager.getTouristsByIds(touristIds);
+        List<Tourist__c> newTourists = TouristManager.getByIds(touristIds);
         
         for (Tourist__c tourist : newTourists) {
             newEmails.add(tourist.Email__c);
