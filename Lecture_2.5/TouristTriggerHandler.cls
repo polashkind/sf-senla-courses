@@ -6,6 +6,12 @@ public class TouristTriggerHandler {
     public static void markDuplicates(Set<Id> touristIds) {
         if (touristIds == null || touristIds.isEmpty()) return;
 
+        Set<Id> touristIds = new Set<Id>();
+            
+        for (Tourist__c tourist : Trigger.New) {
+            touristIds.add(tourist.Id);
+        }
+
         Set<String> newEmails = new Set<String>();
         Set<String> newNames = new Set<String>();
         
@@ -23,6 +29,7 @@ public class TouristTriggerHandler {
                 if (
                     !String.isBlank(newTourist.Tourist_Last_Name__c)
                     && !String.isBlank(newTourist.Email__c)
+                    && newTourist.Id != existingTourist.Id
                     && newTourist.Tourist_Last_Name__c == existingTourist.Tourist_Last_Name__c 
                     && newTourist.Email__c == existingTourist.Email__c
                 ) {
