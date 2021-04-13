@@ -1,16 +1,20 @@
 public class TouristTriggerHandler {
 
     public static Boolean isFirstTime = true;
-    
-    @future
-    public static void markDuplicates(Set<Id> touristIds) {
-        if (touristIds == null || touristIds.isEmpty()) return;
 
+    public static void markDuplicates(List<Tourist__c> tourists) {
         Set<Id> touristIds = new Set<Id>();
-            
-        for (Tourist__c tourist : Trigger.New) {
+                
+        for (Tourist__c tourist : tourists) {
             touristIds.add(tourist.Id);
         }
+
+        TouristTriggerHandler.markDuplicatesAsync(touristIds);
+    }
+    
+    @future
+    private static void markDuplicatesAsync(Set<Id> touristIds) {
+        if (touristIds == null || touristIds.isEmpty()) return;
 
         Set<String> newEmails = new Set<String>();
         Set<String> newNames = new Set<String>();
@@ -39,23 +43,5 @@ public class TouristTriggerHandler {
         }
 
         update newTourists;
-    }
-  
-    public static void flightStatusDeclined(List<Tourist__c> newTourists) {
-        if (newTourists == null || newTourists.isEmpty()) return;
-
-        Set<Id> inactiveTouristsIds = new Set<Id>();
-        for (Tourist__c tourist : newTourists) {
-            if (!tourist.Is_Active__c) {
-                inactiveTouristsIds.add(tourist.Id);
-            }
-        }
-        
-        List <Flight__c> flights = FlightManager.getFlights(inactiveTouristsIds);
-
-        for (Flight__c flight : flights) {
-            flight.Tourist_Status__c = Constants.FLIGHT_STATUS_DECLINED;
-        }
-        update flights;
     }
 }

@@ -5,7 +5,6 @@ public class FlightCleanerBatch implements Database.Batchable<sObject>, Database
                                 'FROM Flight__c  ' +
                                 'WHERE Tourist_Status__c = \'Declined\' AND createdDate > LAST_N_DAYS:30';
     
-    
     public Integer recordsProcessed = 0;
 
     public Database.QueryLocator start(Database.BatchableContext bc){
@@ -16,28 +15,27 @@ public class FlightCleanerBatch implements Database.Batchable<sObject>, Database
         Database.DeleteResult[] drList = Database.delete(scope, false);
         for(Database.DeleteResult dr : drList) {
             if (dr.isSuccess()) {
-                // Operation was successful, so get the ID of the record that was processed
-                System.debug('Successfully deleted account with ID: ' + dr.getId());
-            } else {
-                // Operation failed, so get all errors                
-                for(Database.Error err : dr.getErrors()) {
-                    System.debug('The following error has occurred.');                    
-                    System.debug(err.getStatusCode() + ': ' + err.getMessage());
-                    System.debug('Account fields that affected this error: ' + err.getFields());
-                }
-            }
+                recordsProcessed = recordsProcessed + 1;
+            } 
         }
-
-        recordsProcessed = recordsProcessed + 1;
     }
 
     public void finish (Database.BatchableContext bc) {
-        AsyncApexJob job = [SELECT Id, Status, NumberOfErrors,
+        AsyncApexJob job = [
+            SELECT Id, Status, NumberOfErrors,
             JobItemsProcessed,
             TotalJobItems, CreatedBy.Email
             FROM AsyncApexJob
-            WHERE Id = :bc.getJobId()];
-        // call some utility to send email
-        EmailUtils.sendMessage(job, recordsProcessed);
+            WHERE Id = :bc.getJobId()
+            ];
+
+        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+        String[] toAddresses = new String[] {job.CreatedBy.Email};
+        mail.setToAddresses(toAddresses);
+        mail.setReplyTo(Constants.SEND_FINAL_EMAIL);
+        mail.setSubject('Match Merge Batch ' + job.Status);
+        mail.setPlainTextBody('The batch Apex job processed ' + job.TotalJobItems +
+        ' batches with '+ job.NumberOfErrors + ' failures. ' + recordsProcessed);
+        Messaging.sendEmail(new Messaging.SingleEmailMessage[] {mail});
     }
 }

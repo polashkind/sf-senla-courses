@@ -5,13 +5,7 @@ trigger TouristTriggerHandler on Tourist__c (after insert, after update) {
    
         switch on Trigger.operationType {
             when AFTER_INSERT {
-                // Set<Id> touristIds = new Set<Id>();
-                
-                // for (Tourist__c tourist : Trigger.New) {
-              	// 	touristIds.add(tourist.Id);
-        		// }
-                
-                TouristTriggerHandler.markDuplicates(touristIds);
+                TouristTriggerHandler.markDuplicates(Trigger.New);
             }
             
             when AFTER_UPDATE {
