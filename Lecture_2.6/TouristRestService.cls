@@ -5,8 +5,8 @@ global with sharing class TouristRestService {
     global static List<Tourist__c> getTourists() {
     	Map<String, String> parameters = RestContext.request.params;
 
-    	String fuzzyname = parameters.get('fuzzyname');
-    	Decimal userAge = decimal.valueOf(parameters.get('age'));
+    	String fuzzyname = parameters.get(Constants.FUZZY_NAME);
+    	Decimal userAge = decimal.valueOf(parameters.get(Constants.AGE));
             
        	List<Tourist__c> result = [
         	SELECT Id, Name
@@ -16,7 +16,7 @@ global with sharing class TouristRestService {
      	];
         
         RestResponse response = RestContext.response;
-        response.statusCode = 200;
+        response.statusCode = Constants.STATUS_CODE;
        
      	return result;
     } 
