@@ -1,0 +1,20 @@
+<apex:page standardController="Trip__c" extensions = "TripInfoController">
+    
+    <apex:form id = "TripInfo">
+        <apex:pageBlock >
+            
+            <apex:pageBlockSection  columns = "1" title="Trip Info">
+                <apex:outputField value="{! Trip__c.Id}"/>
+                <apex:outputField value="{! Trip__c.Name}"/>
+                <apex:outputField value="{! Trip__c.Minimum_Age__c}"/>
+                <apex:outputField value="{! Trip__c.Start_Date__c}"/>
+                <apex:outputField value="{! Trip__c.CreatedDate}"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockButtons>
+                <apex:commandButton action = "{!edit}" value = "Edit"/>
+        	</apex:pageBlockButtons>
+        
+    	</apex:pageBlock>
+    </apex:form>
+</apex:page>
