@@ -11,10 +11,14 @@
                 <apex:outputField value="{! Trip__c.CreatedDate}"/>
             </apex:pageBlockSection>
             
-            <apex:pageBlockButtons>
-                <apex:commandButton action = "{!edit}" value = "Edit"/>
-        	</apex:pageBlockButtons>
+            <apex:pageBlockSection>
+                <apex:commandButton value="edit" action="{!EditTheSection}" immediate="true"/>
+            </apex:pageBlockSection>
         
     	</apex:pageBlock>
     </apex:form>
+ 
+    <apex:relatedList list="Trip__c" />
+    <apex:relatedList list="Flights__r"/>
+ 
 </apex:page>
