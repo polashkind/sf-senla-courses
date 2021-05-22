@@ -4,8 +4,5 @@ public class TripInfoController {
     
     public TripInfoController(ApexPages.StandardController stdController) {}
     
-    public PageReference EditTheSection() {
-        editSection = true;
-        return null;
-    }
+    
 }

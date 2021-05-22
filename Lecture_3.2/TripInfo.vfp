@@ -12,13 +12,12 @@
             </apex:pageBlockSection>
             
             <apex:pageBlockSection>
-                <apex:commandButton value="edit" action="{!EditTheSection}" immediate="true"/>
+                <apex:commandButton action="{!URLFOR($Action.Trip__c.Edit, Trip__c.Id, null, true)}" value="Edit" />
             </apex:pageBlockSection>
         
     	</apex:pageBlock>
     </apex:form>
- 
-    <apex:relatedList list="Trip__c" />
-    <apex:relatedList list="Flights__r"/>
- 
+    
+ 	<apex:relatedList list="Flights__r" />
+    
 </apex:page>
