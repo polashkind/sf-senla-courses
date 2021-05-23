@@ -4,11 +4,11 @@
         <apex:pageBlock >
             
             <apex:pageBlockSection  columns = "1" title="Trip Info">
-                <apex:outputField value="{! Trip__c.Id}"/>
-                <apex:outputField value="{! Trip__c.Name}"/>
-                <apex:outputField value="{! Trip__c.Minimum_Age__c}"/>
-                <apex:outputField value="{! Trip__c.Start_Date__c}"/>
-                <apex:outputField value="{! Trip__c.CreatedDate}"/>
+                <apex:outputField value="{! trip.Id}"/>
+                <apex:outputField value="{! trip.Name}"/>
+                <apex:outputField value="{! trip.Minimum_Age__c}"/>
+                <apex:outputField value="{! trip.Start_Date__c}"/>
+                <apex:outputField value="{! trip.CreatedDate}"/>
             </apex:pageBlockSection>
             
             <apex:pageBlockSection>
