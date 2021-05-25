@@ -28,5 +28,14 @@
             </apex:pageBlockTable>
         </apex:pageBlockSection>
         
+        <apex:pageBlockSection columns = "1" title="Available flight information">
+            <apex:pageBlockTable title = "Not related tourist" value="{!notRelatedTourists}" var="tourist">
+                <apex:column value="{!tourist.Name}"/>
+                <apex:column value="{!tourist.Birthdate__c}"/>
+                <apex:column value="{!tourist.Age__c}"/>
+                <apex:column value="{!tourist.Email__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
     </apex:pageBlock>
 </apex:page>
