@@ -1,23 +1,32 @@
-<apex:page standardController="Trip__c" extensions = "TripInfoController">
+<apex:page standardController="Trip__c" extensions="TripInfoController">
     
-    <apex:form id = "TripInfo">
-        <apex:pageBlock >
-            
-            <apex:pageBlockSection  columns = "1" title="Trip Info">
-                <apex:outputField value="{! Trip__c.Id}"/>
-                <apex:outputField value="{! Trip__c.Name}"/>
-                <apex:outputField value="{! Trip__c.Minimum_Age__c}"/>
-                <apex:outputField value="{! Trip__c.Start_Date__c}"/>
-                <apex:outputField value="{! Trip__c.CreatedDate}"/>
-            </apex:pageBlockSection>
-            
-            <apex:pageBlockSection>
-                <apex:commandButton action="{!URLFOR($Action.Trip__c.Edit, Trip__c.Id, null, true)}" value="Edit" />
-            </apex:pageBlockSection>
+    <apex:pageBlock >
+        <apex:pageBlockSection columns="1" title="Trip Info">
+            <apex:outputField value="{! Trip__c.Id}"/>
+            <apex:outputField value="{! Trip__c.Name}"/>
+            <apex:outputField value="{! Trip__c.Minimum_Age__c}"/>
+            <apex:outputField value="{! Trip__c.Start_Date__c}"/>
+            <apex:outputField value="{! Trip__c.CreatedDate}"/>
+        </apex:pageBlockSection>
         
-    	</apex:pageBlock>
-    </apex:form>
-    
- 	<apex:relatedList list="Flights__r" />
-    
+        <apex:pageBlockSection > 
+            <apex:form style="text-align: center" > 
+                <apex:commandButton value="Edit" action="{!Edit}"/>
+            </apex:form>
+        </apex:pageBlockSection> 
+        
+        <apex:pageBlockSection title="Related flights to the trip">
+            <apex:relatedList list="Flights__r" />
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Tourists registered for the trip">
+            <apex:pageBlockTable value="{!Trip__c.Flights__r}" var="flight">
+                <apex:column value="{!flight.Tourist__r.Name}"/>
+                <apex:column value="{!flight.Tourist__r.Birthdate__c}"/>
+                <apex:column value="{!flight.Tourist__r.Age__c}"/>
+                <apex:column value="{!flight.Tourist__r.Email__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+    </apex:pageBlock>
 </apex:page>
